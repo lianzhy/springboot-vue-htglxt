@@ -82,14 +82,15 @@ export default {
     },
     handleClose(key, keyPath) {
       // console.log("close")
-      // console.log(keyPath[0]);
+      //console.log(keyPath[0]);
       // console.log(this.index.indexOf(keyPath[0]))
       if(this.index.indexOf(keyPath[0]) !== -1){
         this.index.splice(this.index.indexOf(keyPath[0]),1)
       }
-      // console.log(this.index)
-      if(this.index.length === 0){
+      console.log(this.index.length)
+      if(this.index.length === 0 || (this.index.includes('3') && this.index.length === 1)){
         this.$emit('collapse');
+        this.index = ['1','3']
       }
 
     }
