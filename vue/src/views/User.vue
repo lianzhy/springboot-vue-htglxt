@@ -21,8 +21,20 @@
       >
         <el-button type="danger" slot="reference" class="ml-5">批量删除 <i class="el-icon-remove-outline"></i></el-button>
       </el-popconfirm>
+<<<<<<< HEAD
       <el-button type="primary" class="ml-5">导入 <i class="el-icon-bottom"></i></el-button>
       <el-button type="primary">导出 <i class="el-icon-top"></i></el-button>
+=======
+      <el-upload
+          action="http://localhost:8080/user/import" style="display: inline-block" class="mr-5"
+          :show-file-list="false"
+          :accept="'.xlsx'"
+          :on-success="handleExcelImportSuccess">
+        <el-button type="primary" class="ml-5">导入 <i class="el-icon-bottom"></i></el-button>
+      </el-upload>
+
+      <el-button type="primary" @click="exp">导出 <i class="el-icon-top"></i></el-button>
+>>>>>>> imputAndOutput
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
@@ -99,7 +111,11 @@ export default {
       tableData: [],
       total: 0,
       pageNum: 1,
+<<<<<<< HEAD
       pageSize: 5,
+=======
+      pageSize: 10,
+>>>>>>> imputAndOutput
       username: "",
       email: "",
       address: "",
@@ -189,6 +205,16 @@ export default {
       console.log(pageNum)
       this.pageNum = pageNum
       this.load()
+<<<<<<< HEAD
+=======
+    },
+    exp(){
+      window.open("http://localhost:8080/user/export")
+    },
+    handleExcelImportSuccess(){
+      this.$message.success("文件导入成功！")
+      this.load()
+>>>>>>> imputAndOutput
     }
   }
 }
