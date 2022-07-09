@@ -142,13 +142,13 @@ export default {
       }).then(res => {
         console.log(res)
 
-        this.tableData = res.records
-        this.total = res.total
+        this.tableData = res.data.records
+        this.total = res.data.total
       })
     },
     save(){
       this.request.post("/user/",this.form).then(res =>{
-        if(res){
+        if(res.data){
           this.$message.success("保存成功")
           this.dialogFormVisible = false
           this.load()
@@ -174,7 +174,7 @@ export default {
     },
     handleDelete(id){
       this.request.delete("/user/"+id).then(res =>{
-        if(res){
+        if(res.data){
           this.$message.success("删除成功")
           this.load()
         }else{

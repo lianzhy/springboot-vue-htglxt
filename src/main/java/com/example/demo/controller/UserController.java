@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.common.Constants;
+import com.example.demo.common.Result;
+import com.example.demo.dto.UserDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.IUserService;
 import org.springframework.web.bind.annotation.*;
@@ -33,33 +37,63 @@ public class UserController {
     @Resource
     private IUserService userService;
 
+    @PostMapping("/login")
+    public Result login(@RequestBody UserDto userDto){
+
+        String username = userDto.getUsername();
+        String password = userDto.getPassword();
+        if(StrUtil.isBlank(username) || StrUtil.isBlank(password)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+
+        UserDto dto = userService.login(userDto);
+        return Result.success(dto);
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody UserDto userDto){
+        String username = userDto.getUsername();
+        String password = userDto.getPassword();
+        if(StrUtil.isBlank(username) || StrUtil.isBlank(password)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        return Result.success(userService.register(userDto));
+    }
+
     @PostMapping
-    public Boolean saveOrUpdate(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+    public Result saveOrUpdate(@RequestBody User user) {
+        return Result.success(userService.saveOrUpdate(user));
     }
 
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+    public Result delete(@PathVariable Integer id) {
+        return Result.success(userService.removeById(id));
     }
 
     @PostMapping("/del/batch")
-    public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeBatchByIds(ids);
+    public Result deleteBatch(@RequestBody List<Integer> ids) {
+        return Result.success(userService.removeBatchByIds(ids));
     }
 
     @GetMapping
-    public List<User> findAll() {
-        return userService.list();
+    public Result findAll() {
+        return Result.success(userService.list());
     }
 
     @GetMapping("/{id}")
-    public User findOne(@PathVariable Integer id) {
-        return userService.getById(id);
+    public Result findOne(@PathVariable Integer id) {
+        return Result.success(userService.getById(id));
+    }
+
+    @GetMapping("/username/{username}")
+    public Result findOneByUsername(@PathVariable String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",username);
+        return Result.success(userService.getOne(queryWrapper));
     }
 
     @GetMapping("/page")
-    public Page<User> findPage(@RequestParam Integer pageNum,
+    public Result findPage(@RequestParam Integer pageNum,
                                @RequestParam Integer pageSize,
                                @RequestParam(defaultValue = "") String username,
                                @RequestParam(defaultValue = "") String email,
@@ -76,7 +110,7 @@ public class UserController {
             queryWrapper.like("address", address);
         }
         queryWrapper.orderByDesc("id");
-        return userService.page(new Page<>(pageNum,pageSize),queryWrapper);
+        return Result.success(userService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
     /**
@@ -120,14 +154,16 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/import")
-    public Boolean imp(MultipartFile file) throws IOException {
+    public Result imp(MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         ExcelReader reader = ExcelUtil.getReader(inputStream);
         //List<User> list = reader.readAll(User.class);
         List<User> list = reader.read(0, 1, User.class);
         userService.saveBatch(list);
         inputStream.close();
-        return true;
+        return Result.success(true);
     }
+
+
 }
 
