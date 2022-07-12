@@ -31,7 +31,7 @@ export default {
   name: "MyHeader",
   data(){
     return{
-      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+
     }
   },
   watch: {  //监听路由变化
@@ -55,7 +55,8 @@ export default {
     collapseBtnClass: String,
     collapse: {
       type: Function
-    }
+    },
+    user: Object
   }
 }
 </script>
