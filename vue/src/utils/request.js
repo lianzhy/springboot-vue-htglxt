@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ElementUI from "element-ui";
 
 const request = axios.create({
     baseURL: 'http://localhost:8080',  // 注意！！ 这里是全局统一加上了 后端接口前缀 前缀，后端必须进行跨域配置！
@@ -10,8 +11,15 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
+    let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+    if(user.token){
+        //console.log(1)
+        config.headers['token'] = user.token;  // 设置请求头
+    }else{
+        //console.log(2)
+        config.headers['token'] = "";
+    }
 
-    config.headers['token'] = user.token;  // 设置请求头
     return config
 }, error => {
     return Promise.reject(error)
@@ -29,6 +37,13 @@ request.interceptors.response.use(
         // 兼容服务端返回的字符串数据
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
+        }
+        //当权限验证不通过的时候给出提示
+        if(res.code === '401'){
+            ElementUI.Message({
+                message: res.msg,
+                type: 'error'
+            })
         }
         return res;
     },

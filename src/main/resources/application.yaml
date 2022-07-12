@@ -7,6 +7,9 @@ spring:
     url: jdbc:mysql://localhost:3308/testsv?serverTimezone=GMT%2b8&characterEncoding=UTF8
     username: root
     password: 111111
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #扫描所有mybatis的xml文件
@@ -16,3 +19,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  type-aliases-package: com.example.demo.entity
+
+files:
+  upload:
+    path: D:\springboot-vue-htgl\files\

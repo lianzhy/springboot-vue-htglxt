@@ -9,7 +9,7 @@
 
       </el-breadcrumb>
     </div>
-    <el-dropdown style="width: 120px;cursor: pointer;">
+    <el-dropdown style="width: 150px;cursor: pointer;text-align: right;">
       <div style="display: inline-block">
         <img :src="user.avatarUrl" alt="" style="width: 30px;border-radius: 50%;position: relative;top: 10px;right: 5px">
         <span>{{user.nickname}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
@@ -31,7 +31,7 @@ export default {
   name: "MyHeader",
   data(){
     return{
-      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+
     }
   },
   watch: {  //监听路由变化
@@ -55,7 +55,8 @@ export default {
     collapseBtnClass: String,
     collapse: {
       type: Function
-    }
+    },
+    user: Object
   }
 }
 </script>

@@ -12,6 +12,7 @@ import com.example.demo.common.Result;
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.IUserService;
+import com.example.demo.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -110,6 +111,10 @@ public class UserController {
             queryWrapper.like("address", address);
         }
         queryWrapper.orderByDesc("id");
+
+        User currentUser = TokenUtils.getCurrentUser();
+        System.out.println(currentUser);
+
         return Result.success(userService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
