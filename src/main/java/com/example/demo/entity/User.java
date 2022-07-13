@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -54,7 +54,7 @@ public class User implements Serializable {
 
       @ApiModelProperty("创建时间")
       @Alias("创建时间")
-      private LocalDateTime createTime;
+      private Date createTime;
 
       @ApiModelProperty("头像")
       @Alias("头像")
@@ -117,11 +117,11 @@ public class User implements Serializable {
           this.address = address;
       }
     
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-      public void setCreateTime(LocalDateTime createTime) {
+      public void setCreateTime(Date createTime) {
           this.createTime = createTime;
       }
 

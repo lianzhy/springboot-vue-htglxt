@@ -22,7 +22,7 @@ public class Interceptor implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(JwtInterceptor())
 				.addPathPatterns("/**")
-				.excludePathPatterns("/user/login","/user/register","/**/export","/**/import","/file/**");
+				.excludePathPatterns("/user/login","/user/register","/**/export","/**/import","/file/**","/echarts/**");
 	}
 
 	@Bean
