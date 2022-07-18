@@ -1,6 +1,9 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Menu;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>用户登录实体类</p>
@@ -19,4 +22,8 @@ public class UserDto {
 	private String avatarUrl;
 
 	private String token;
+
+	private List<Menu> menus;
+
+	private String role;
 }

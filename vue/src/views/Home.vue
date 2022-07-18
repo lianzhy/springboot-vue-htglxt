@@ -1,12 +1,47 @@
 <template>
   <div>
+    <el-row :gutter="10" style="margin-bottom: 60px">
+      <el-col :span="6">
+        <el-card style="color: #409EFF">
+          <div><i class="el-icon-user-solid" /> 用户总数</div>
+          <div style="padding: 10px 0;text-align: center;font-weight: bold">
+            100
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card style="color: #F56C6C">
+          <div><i class="el-icon-coin" /> 销售总量</div>
+          <div style="padding: 10px 0;text-align: center;font-weight: bold">
+            ￥ 1000000
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card style="color: #67C23A">
+          <div><i class="el-icon-money" /> 收益总额</div>
+          <div style="padding: 10px 0;text-align: center;font-weight: bold">
+            ￥ 300000
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card style="color: #E6A23C">
+          <div><i class="el-icon-s-shop" /> 门店总数</div>
+          <div style="padding: 10px 0;text-align: center;font-weight: bold">
+            20
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="12">
-        <div id="main" style="width:500px;height: 400px"></div>
+        <div id="main" style="width:500px;height: 450px"></div>
       </el-col>
 
       <el-col :span="12">
-        <div id="pie" style="width:500px;height: 400px"></div>
+        <div id="pie" style="width:500px;height: 450px"></div>
       </el-col>
     </el-row>
   </div>
@@ -31,6 +66,13 @@ export default {
         subtext: '趋势图',
         left: 'center'
       },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
       xAxis: {
         type: 'category',
         data: ["第一季度","第二季度","第三季度","第四季度"]
@@ -40,12 +82,24 @@ export default {
       },
       series: [
         {
+          name: "折线图",
           data: [],
           type: 'line'
         },
         {
+          name: "柱状图",
           data: [],
-          type: 'bar'
+          barWidth: '35%',
+          type: 'bar',
+          itemStyle: {
+            barBorderRadius: 3,
+            borderWidth: 1,
+            borderType: 'solid',
+            borderColor: '#73c0de',
+            shadowColor: '#5470c6',
+            shadowBlur: 3,
+            color: '#73c0de'
+          }
         }
       ]
     };

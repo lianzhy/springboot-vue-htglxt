@@ -8,4 +8,5 @@ public interface Constants {
 	String CODE_500 = "500";   //系统错误
 	String CODE_600 = "600";   //其他业务错误
 
+	String DICT_TYPE_ICON = "icon";
 }

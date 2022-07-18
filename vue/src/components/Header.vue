@@ -48,6 +48,7 @@ export default {
     logout(){
       this.$router.push("/login")
       localStorage.removeItem("user")
+      localStorage.removeItem("menus")
       this.$message.success("退出成功!")
     }
   },
